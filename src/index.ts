@@ -1,8 +1,11 @@
 import express, { Application, Request, Response } from "express";
 import morgan from "morgan";
-import routes from './routes/massifs';
 import http from 'http';
 import { DEFAULT_LISTENING_PORT } from './constants';
+import massifs from './routes/massifs';
+import beras from './routes/beras';
+
+
 
 const app: Application = express();
 
@@ -28,7 +31,8 @@ app.use((req, res, next) => {
 });
 
 /** Routes */
-app.use('/', routes);
+app.use('/', massifs);
+app.use('/', beras);
 
 /** Error handling */
 app.use((req, res, next) => {
