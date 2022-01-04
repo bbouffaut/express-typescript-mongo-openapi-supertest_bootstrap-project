@@ -29,6 +29,8 @@
     "typescript": "^4.5.4"
   },
   "dependencies": {
-    "express": "^4.17.2"
+    "@types/morgan": "^1.9.3",
+    "express": "^4.17.2",
+    "morgan": "^1.10.0"
   }
 }
