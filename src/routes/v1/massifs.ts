@@ -1,5 +1,5 @@
 import express from 'express';
-import controller from '../../controllers/massifs';
+import controller from '../../controllers/v1/massifs';
 const router = express.Router();
 
 router.get('/massifs', controller.getMassifs);
