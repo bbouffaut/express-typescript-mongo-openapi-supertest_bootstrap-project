@@ -1,9 +1,9 @@
-import express, { Application, Request, Response } from "express";
+import express, { Application } from "express";
 import morgan from "morgan";
 import http from 'http';
 import { DEFAULT_LISTENING_PORT } from './constants';
-import massifs from './routes/massifs';
-import beras from './routes/beras';
+import { router as massifs_v1 } from './routes/v1/massifs';
+import { router as beras_v1 } from './routes/v1/beras';
 
 
 
@@ -31,8 +31,8 @@ app.use((req, res, next) => {
 });
 
 /** Routes */
-app.use('/', massifs);
-app.use('/', beras);
+app.use('/v1/', massifs_v1);
+app.use('/v1/', beras_v1);
 
 /** Error handling */
 app.use((req, res, next) => {
