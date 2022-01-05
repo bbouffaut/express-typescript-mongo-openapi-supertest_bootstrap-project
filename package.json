@@ -8,7 +8,8 @@
     "start-nodedev": "ts-node-dev ./src/index.ts",
     "lint": "eslint . --ext .ts",
     "build": "tsc",
-    "run": "node dist/index.js"
+    "run": "node dist/index.js",
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -22,9 +23,16 @@
   "homepage": "https://bitbucket.org/skails/meteo-france-api#readme",
   "devDependencies": {
     "@types/express": "^4.17.13",
+    "@types/jest": "^26.0.24",
     "@types/node": "^17.0.7",
+    "@types/rewire": "^2.5.28",
     "@typescript-eslint/eslint-plugin": "^5.9.0",
     "@typescript-eslint/parser": "^5.9.0",
+    "class-transformer": "^0.5.1",
+    "jest": "^26.6.3",
+    "rewire": "^6.0.0",
+    "supertest": "^6.1.6",
+    "ts-jest": "^26.5.6",
     "ts-node-dev": "^1.1.8",
     "typescript": "^4.5.4"
   },

@@ -1,0 +1,9 @@
+{
+    "schemaVersion": "0",
+    "name": "meteo-france-api",
+    "rootDir": "./src",
+    "testEnvironment": "node",
+    "testLocationStrategy": "relativeToProjectRoot",
+    "testLocationFolder": "./ponicode",
+    "testNamePattern": "{name}.test.{ext}"
+}
