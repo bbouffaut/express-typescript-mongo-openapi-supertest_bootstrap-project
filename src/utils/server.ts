@@ -8,6 +8,10 @@ import * as OpenApiValidator from 'express-openapi-validator'
 import * as api_v1 from '@meteo-france-api/api/controllers/v1';
 import { OPENAPI_YAML_FILE } from "@meteo-france-api/utils/constants";
 
+import config from '@meteo-france-api/config';
+import { expressDevLogger } from '@meteo-france-api/utils/express_dev_logger';
+import morganBody from "morgan-body";
+
 const createServer = async (): Promise<Server> => {
 
     const yamlSpecFile = OPENAPI_YAML_FILE
@@ -38,7 +42,17 @@ const createServer = async (): Promise<Server> => {
     })
 
     /** Logging */
-    app.use(morgan('dev'));
+    if (config.morganLogger) {
+        app.use(morgan(':method :url :status :res[content-length] - :response-time ms'));
+    }
+    
+    if (config.morganBodyLogger) {
+        morganBody(app);
+    }
+
+    if (config.appDevLogger) {
+        app.use(expressDevLogger);
+    }
 
     // Body parsing Middleware
     app.use(express.json());

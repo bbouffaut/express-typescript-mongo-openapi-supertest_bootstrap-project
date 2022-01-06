@@ -4,11 +4,11 @@
   "description": "APIs for Android App Meteo-France Montagnes infos",
   "main": "dist/index.js",
   "scripts": {
-    "start": "tsc && node -r tsconfig-paths/register dist/app.js",
-    "dev": "ts-node-dev -r tsconfig-paths/register ./src/app.ts",
+    "start": "tsc && ENV_FILE=./config/.env.prod node -r tsconfig-paths/register bin/app.js",
+    "dev": "ENV_FILE=./config/.env.dev ts-node-dev -r tsconfig-paths/register ./src/app.ts",
     "lint": "eslint . --ext .ts",
     "build": "tsc",
-    "run": "node -r tsconfig-paths/register dist/app.js",
+    "run": "ENV_FILE=./config/.env.dev node -r tsconfig-paths/register bin/app.js",
     "test": "jest"
   },
   "repository": {
@@ -38,13 +38,17 @@
     "typescript": "^4.5.4"
   },
   "dependencies": {
+    "@types/dotenv-parse-variables": "^2.0.1",
     "@types/morgan": "^1.9.3",
     "@types/validator": "^13.7.1",
     "@types/yamljs": "^0.2.31",
     "connect": "^3.7.0",
+    "dotenv-extended": "^2.9.0",
+    "dotenv-parse-variables": "^2.0.0",
     "express": "^4.17.2",
     "express-openapi-validator": "^4.13.5",
     "morgan": "^1.10.0",
+    "morgan-body": "^2.6.6",
     "swagger-routes-express": "^3.3.1",
     "tsconfig-paths": "^3.12.0",
     "validator": "^13.7.0",
