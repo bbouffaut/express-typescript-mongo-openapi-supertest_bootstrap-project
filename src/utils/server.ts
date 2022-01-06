@@ -5,8 +5,8 @@ import YAML from "yamljs";
 import { connector, summarise } from "swagger-routes-express";
 import * as OpenApiValidator from 'express-openapi-validator'
 
-import * as api_v1 from '../api/controllers/v1';
-import { OPENAPI_YAML_FILE } from "./constants";
+import * as api_v1 from '@meteo-france-api/api/controllers/v1';
+import { OPENAPI_YAML_FILE } from "@meteo-france-api/utils/constants";
 
 const createServer = async (): Promise<Server> => {
 

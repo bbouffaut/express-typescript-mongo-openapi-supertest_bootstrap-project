@@ -1,6 +1,6 @@
 import { Server } from 'http';
-import { DEFAULT_LISTENING_PORT } from './utils/constants';
-import { createServer } from './utils/server';
+import { DEFAULT_LISTENING_PORT } from '@meteo-france-api/utils/constants';
+import { createServer } from '@meteo-france-api/utils/server';
 
 const main = async () => {
     try {
