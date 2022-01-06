@@ -27,6 +27,10 @@ const createServer = (): AppServers => {
 
     const app: Express = express();
 
+    // Body parsing Middleware
+    app.use(express.json());
+    app.use(express.urlencoded({ extended: true }));
+
     // setup API validator
     const validatorOptions = {
         apiSpec: yamlSpecFile,
@@ -35,17 +39,6 @@ const createServer = (): AppServers => {
     }
     
     app.use(OpenApiValidator.middleware(validatorOptions));
-
-    // error customization, if request is invalid
-    app.use((err: any, req: Request, res: Response, next: NextFunction) => {
-        res.status(err.status).json({
-        error: {
-            type: 'request_validation',
-            message: err.message,
-            errors: err.errors
-        }
-        })
-    })
 
     /** Logging */
     if (config.morganLogger) {
@@ -57,10 +50,6 @@ const createServer = (): AppServers => {
             theme: 'darkened',
         });
     }
-
-    // Body parsing Middleware
-    app.use(express.json());
-    app.use(express.urlencoded({ extended: true }));
 
     /** RULES OF OUR API */
     app.use((req: Request, res: Response, next: NextFunction) => {
@@ -81,9 +70,20 @@ const createServer = (): AppServers => {
         onCreateRoute: (method: string, descriptor: any[]) => {
             logger.verbose(`${method}: ${descriptor[0]} : ${(descriptor[1] as any).name}`)
         }
-    })
+    });
 
     connect(app);
+
+    // error customization, if request is invalid
+    app.use((err: any, req: Request, res: Response, next: NextFunction) => {
+        res.status(err.status || 500).json({
+            error: {
+                type: 'request_validation',
+                message: err.message,
+                errors: err.errors
+            }
+        })
+    })
 
     const httpServer: Server = http.createServer(app);
 
