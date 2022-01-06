@@ -20,6 +20,7 @@ const config = {
     morganLogger: parsedEnv.MORGAN_LOGGER,
     morganBodyLogger: parsedEnv.MORGAN_BODY_LOGGER,
     appDevLogger: parsedEnv.APP_DEV_LOGGER,
-    port: parsedEnv.PORT
+    port: parsedEnv.PORT,
+    loggerLevel: parsedEnv.LOGGER_LEVEL
 };
 exports.default = config;

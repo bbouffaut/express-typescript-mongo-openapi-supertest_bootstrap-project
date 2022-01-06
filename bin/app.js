@@ -13,16 +13,17 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const server_1 = require("@meteo-france-api/utils/server");
-const config_1 = __importDefault(require("./config"));
+const config_1 = __importDefault(require("@meteo-france-api/config"));
+const logger_1 = __importDefault(require("@meteo-france-api/utils/logger"));
 const main = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
         /** Server */
         const httpServer = yield (0, server_1.createServer)();
-        httpServer.listen(config_1.default.port, () => console.log(`The server is running on port ${config_1.default.port}`));
+        httpServer.listen(config_1.default.port, () => logger_1.default.http(`The server is running on port ${config_1.default.port}`));
     }
     catch (e) {
         const error = e;
-        console.error(`Error occured: ${error.message}`);
+        logger_1.default.error(`Error occured: ${error.message}`);
     }
 });
 main();

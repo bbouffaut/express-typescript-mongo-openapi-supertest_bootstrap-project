@@ -43,11 +43,12 @@ const constants_1 = require("@meteo-france-api/utils/constants");
 const config_1 = __importDefault(require("@meteo-france-api/config"));
 const express_dev_logger_1 = require("@meteo-france-api/utils/express_dev_logger");
 const morgan_body_1 = __importDefault(require("morgan-body"));
+const logger_1 = __importDefault(require("@meteo-france-api/utils/logger"));
 const createServer = () => __awaiter(void 0, void 0, void 0, function* () {
     const yamlSpecFile = constants_1.OPENAPI_YAML_FILE;
     const apiDefinition = yamljs_1.default.load(yamlSpecFile);
     const apiSummary = (0, swagger_routes_express_1.summarise)(apiDefinition);
-    console.info(apiSummary);
+    logger_1.default.info(apiSummary);
     const app = (0, express_1.default)();
     // setup API validator
     const validatorOptions = {
@@ -67,7 +68,6 @@ const createServer = () => __awaiter(void 0, void 0, void 0, function* () {
         });
     });
     /** Logging */
-    console.log('Config', config_1.default);
     if (config_1.default.morganLogger) {
         app.use((0, morgan_1.default)(':method :url :status :res[content-length] - :response-time ms'));
     }
@@ -96,7 +96,7 @@ const createServer = () => __awaiter(void 0, void 0, void 0, function* () {
     /** Generate Routes */
     const connect = (0, swagger_routes_express_1.connector)(api_v1, apiDefinition, {
         onCreateRoute: (method, descriptor) => {
-            console.log(`${method}: ${descriptor[0]} : ${descriptor[1].name}`);
+            logger_1.default.verbose(`${method}: ${descriptor[0]} : ${descriptor[1].name}`);
         }
     });
     connect(app);

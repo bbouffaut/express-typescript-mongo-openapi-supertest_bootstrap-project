@@ -1,16 +1,16 @@
 import { Server } from 'http';
-import { DEFAULT_LISTENING_PORT } from '@meteo-france-api/utils/constants';
 import { createServer } from '@meteo-france-api/utils/server';
-import config from './config';
+import config from '@meteo-france-api/config';
+import logger from '@meteo-france-api/utils/logger';
 
 const main = async () => {
     try {
         /** Server */
         const httpServer: Server = await createServer();
-        httpServer.listen(config.port, () => console.log(`The server is running on port ${config.port}`));
+        httpServer.listen(config.port, () => logger.http(`The server is running on port ${config.port}`));
     } catch (e) {
         const error: Error = e as Error;
-        console.error(`Error occured: ${error.message}`);
+        logger.error(`Error occured: ${error.message}`);
     }
 }
 

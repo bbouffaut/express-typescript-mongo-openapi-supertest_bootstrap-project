@@ -11,13 +11,14 @@ import { OPENAPI_YAML_FILE } from "@meteo-france-api/utils/constants";
 import config from '@meteo-france-api/config';
 import { expressDevLogger } from '@meteo-france-api/utils/express_dev_logger';
 import morganBody from "morgan-body";
+import logger from "@meteo-france-api/utils/logger";
 
 const createServer = async (): Promise<Server> => {
 
     const yamlSpecFile = OPENAPI_YAML_FILE
     const apiDefinition = YAML.load(yamlSpecFile)
     const apiSummary = summarise(apiDefinition)
-    console.info(apiSummary)
+    logger.info(apiSummary)
 
     const app: Application = express();
 
@@ -75,7 +76,7 @@ const createServer = async (): Promise<Server> => {
    /** Generate Routes */
    const connect = connector(api_v1, apiDefinition, {
         onCreateRoute: (method: string, descriptor: any[]) => {
-            console.log(`${method}: ${descriptor[0]} : ${(descriptor[1] as any).name}`)
+            logger.verbose(`${method}: ${descriptor[0]} : ${(descriptor[1] as any).name}`)
         }
     })
 
