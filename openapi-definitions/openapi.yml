@@ -27,7 +27,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: './massifs.yml#/components/schemas/Massifs'           
+                $ref: 'massifs.yml#/components/schemas/Massifs'           
 
   /bera/{id}:
     get:
@@ -46,4 +46,4 @@ paths:
           content:
             application/json:
               schema:
-                $ref: './bera.yml#/components/schemas/Bera'
+                $ref: 'bera.yml#/components/schemas/Bera'

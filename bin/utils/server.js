@@ -18,15 +18,6 @@ var __importStar = (this && this.__importStar) || function (mod) {
     __setModuleDefault(result, mod);
     return result;
 };
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -44,7 +35,7 @@ const config_1 = __importDefault(require("@meteo-france-api/config"));
 const express_dev_logger_1 = require("@meteo-france-api/utils/express_dev_logger");
 const morgan_body_1 = __importDefault(require("morgan-body"));
 const logger_1 = __importDefault(require("@meteo-france-api/utils/logger"));
-const createServer = () => __awaiter(void 0, void 0, void 0, function* () {
+const createServer = () => {
     const yamlSpecFile = constants_1.OPENAPI_YAML_FILE;
     const apiDefinition = yamljs_1.default.load(yamlSpecFile);
     const apiSummary = (0, swagger_routes_express_1.summarise)(apiDefinition);
@@ -101,6 +92,10 @@ const createServer = () => __awaiter(void 0, void 0, void 0, function* () {
     });
     connect(app);
     const httpServer = http_1.default.createServer(app);
-    return httpServer;
-});
+    const result = {
+        expressServer: app,
+        httpServer: httpServer
+    };
+    return result;
+};
 exports.createServer = createServer;

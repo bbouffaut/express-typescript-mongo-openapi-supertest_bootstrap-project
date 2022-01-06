@@ -1,4 +1,5 @@
 import express, { Application, NextFunction, Request, Response } from "express";
+import { Express } from 'express-serve-static-core';
 import morgan from "morgan";
 import http, { Server } from 'http';
 import YAML from "yamljs";
@@ -13,19 +14,24 @@ import { expressDevLogger } from '@meteo-france-api/utils/express_dev_logger';
 import morganBody from "morgan-body";
 import logger from "@meteo-france-api/utils/logger";
 
-const createServer = async (): Promise<Server> => {
+interface AppServers {
+    expressServer: Express;
+    httpServer: http.Server;
+}
+
+const createServer = (): AppServers => {
 
     const yamlSpecFile = OPENAPI_YAML_FILE
     const apiDefinition = YAML.load(yamlSpecFile)
     const apiSummary = summarise(apiDefinition)
     logger.info(apiSummary)
 
-    const app: Application = express();
+    const app: Express = express();
 
     // setup API validator
     const validatorOptions = {
         apiSpec: yamlSpecFile,
-        validateRequests: true,
+        validateRequests: false,
         validateResponses: false
     }
     
@@ -84,7 +90,12 @@ const createServer = async (): Promise<Server> => {
 
     const httpServer: Server = http.createServer(app);
 
-    return httpServer;
+    const result: AppServers = {
+        expressServer: app,
+        httpServer: httpServer
+    }
+
+    return result;
 
 };
 

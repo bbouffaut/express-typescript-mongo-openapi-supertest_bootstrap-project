@@ -9,7 +9,7 @@
     "lint": "eslint . --ext .ts",
     "build": "tsc",
     "run": "ENV_FILE=./config/.env.dev node -r tsconfig-paths/register bin/app.js",
-    "test": "jest"
+    "test": "ENV_FILE=./config/.env.test jest --coverage"
   },
   "repository": {
     "type": "git",
