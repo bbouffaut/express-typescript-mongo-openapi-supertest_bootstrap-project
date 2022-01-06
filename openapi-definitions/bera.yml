@@ -1,0 +1,53 @@
+components:
+  schemas:
+
+    ICartoucheRisque:
+      properties:
+        RISQUE:
+          type: string
+        PENTE:
+          type: string
+        ACCIDENTEL:
+          type: string
+        NATUREL:
+          type: string
+        RESUME:
+          type: string
+        AVIS:
+          type: string
+        VIGILANCE:
+          type: string
+        ImageCartoucheRisque:
+          type: object
+
+    IBulletinNeigeAvalanche:
+      properties:
+        DateValidite:
+          type: string
+        CARTOUCHERISQUE:
+          $ref: '#/components/schemas/ICartoucheRisque'
+        STABILITE:
+          type: object
+        QUALITE:
+          type: object
+
+
+    Bera:
+      properties:
+        massif_id:
+          type: string
+        BULLETINS_NEIGE_AVALANCHE:
+          $ref: '#/components/schemas/IBulletinNeigeAvalanche'
+        ENNEIGEMENT:
+          type: object
+        NEIGEFRAICHE:
+          type: object
+        METEO:
+          type: object
+        TENDANCES:
+          type: object
+        BSH:
+          type: object
+    
+      
+    

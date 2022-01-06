@@ -1,0 +1,50 @@
+components:
+  schemas:
+
+    IMassifGeometry:
+      type: object
+      properties:
+        type:
+          type: string
+        coordinates:
+          type: array
+          items:
+            type: array
+            items:
+              type: array
+              items:
+                type: number
+
+    IMassifProperties:
+      type: object
+      properties:
+        massif_name:
+          type: string
+        massif_altitude_min:
+          type: number
+        massif_altitude_max:
+          type: number
+        massif_avalanche_risk:
+          type: object
+        fresh_snow_per_exposition:
+          type: object
+        avalanche_report:
+          type: string
+        total_snow_per_exposition:
+          type: array
+          items:
+            type: object
+
+    Massifs:
+      type: array
+      items:
+        type: object
+        properties:
+          type:
+            type: string
+          update_time:
+            type: string
+          geometry:
+            $ref: '#/components/schemas/IMassifGeometry'
+          properties:
+            $ref: '#/components/schemas/IMassifProperties'

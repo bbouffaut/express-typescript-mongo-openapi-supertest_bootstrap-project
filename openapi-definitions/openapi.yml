@@ -1,0 +1,49 @@
+
+openapi: 3.0.3
+info:
+  title: MeteoFrance Montagne APIs wrapper
+  description: Wrap MeteoFrance Montagne Data into REST API
+  termsOfService: http://swagger.io/terms/
+  contact:
+    email: baptiste@skails.com
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+  version: 1.0.0
+externalDocs:
+  description: Find out more about Swagger
+  url: http://swagger.io
+servers:
+- url: /v1
+ 
+paths:
+  /massifs:
+    get:
+      description: Return a JSON object describing MeteoFrance-Montagne massif
+      operationId: massifs
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: './massifs.yml#/components/schemas/Massifs'           
+
+  /bera/{id}:
+    get:
+      description: Return the BERA of a given massif
+      operationId: bera
+      parameters:
+      - name: id
+        required: true
+        in: path
+        description: the id of the massifs you want to retrieve
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: './bera.yml#/components/schemas/Bera'
