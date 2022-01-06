@@ -9,10 +9,10 @@ const env = dotenvExtended.load({
   path: process.env.ENV_FILE,
   defaults: ENV_DEFAULTS_FILE,
   schema: ENV_SCHEMA_FILE,
-  includeProcessEnv: true,
+  includeProcessEnv: false,
   silent: false,
   errorOnMissing: true,
-  errorOnExtra: true
+  errorOnExtra: true,
 });
 
 const parsedEnv = dotenvParseVariables(env);
@@ -20,17 +20,17 @@ const parsedEnv = dotenvParseVariables(env);
 interface Config {
   morganLogger: boolean,
   morganBodyLogger: boolean,
-  appDevLogger: boolean,
   port: number,
-  loggerLevel: LogLevel
+  loggerLevel: LogLevel,
+  localCacheTtl: number,
 }
 
 const config: Config = {
   morganLogger: parsedEnv.MORGAN_LOGGER as boolean,
   morganBodyLogger: parsedEnv.MORGAN_BODY_LOGGER as boolean,
-  appDevLogger: parsedEnv.APP_DEV_LOGGER as boolean,
   port: parsedEnv.PORT as number,
-  loggerLevel: parsedEnv.LOGGER_LEVEL as LogLevel
+  loggerLevel: parsedEnv.LOGGER_LEVEL as LogLevel,
+  localCacheTtl: parsedEnv.LOCAL_CACHE_TTL as number,
 };
 
 export default config

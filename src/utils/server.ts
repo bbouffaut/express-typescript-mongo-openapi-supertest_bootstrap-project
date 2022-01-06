@@ -1,4 +1,4 @@
-import express, { Application, NextFunction, Request, Response } from "express";
+import express, { NextFunction, Request, Response } from "express";
 import { Express } from 'express-serve-static-core';
 import morgan from "morgan";
 import http, { Server } from 'http';
@@ -10,7 +10,6 @@ import * as api_v1 from '@meteo-france-api/api/controllers/v1';
 import { OPENAPI_YAML_FILE } from "@meteo-france-api/utils/constants";
 
 import config from '@meteo-france-api/config';
-import { expressDevLogger } from '@meteo-france-api/utils/express_dev_logger';
 import morganBody from "morgan-body";
 import logger from "@meteo-france-api/utils/logger";
 
@@ -21,18 +20,18 @@ interface AppServers {
 
 const createServer = (): AppServers => {
 
-    const yamlSpecFile = OPENAPI_YAML_FILE
-    const apiDefinition = YAML.load(yamlSpecFile)
-    const apiSummary = summarise(apiDefinition)
-    logger.info(apiSummary)
+    const yamlSpecFile = OPENAPI_YAML_FILE;
+    const apiDefinition = YAML.load(yamlSpecFile);
+    const apiSummary = summarise(apiDefinition);
+    logger.info(apiSummary);
 
     const app: Express = express();
 
     // setup API validator
     const validatorOptions = {
         apiSpec: yamlSpecFile,
-        validateRequests: false,
-        validateResponses: false
+        validateRequests: true,
+        validateResponses: true
     }
     
     app.use(OpenApiValidator.middleware(validatorOptions));
@@ -50,15 +49,13 @@ const createServer = (): AppServers => {
 
     /** Logging */
     if (config.morganLogger) {
-        app.use(morgan(':method :url :status :res[content-length] - :response-time ms'));
+        app.use(morgan('dev'));
     }
     
     if (config.morganBodyLogger) {
-        morganBody(app);
-    }
-
-    if (config.appDevLogger) {
-        app.use(expressDevLogger);
+        morganBody(app, {
+            theme: 'darkened',
+        });
     }
 
     // Body parsing Middleware
