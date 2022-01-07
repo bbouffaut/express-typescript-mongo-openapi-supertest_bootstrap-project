@@ -23,6 +23,10 @@ interface Config {
   port: number,
   loggerLevel: LogLevel,
   localCacheTtl: number,
+  mongo: {
+    url: string,
+    autoIndex: boolean
+  },
 }
 
 const config: Config = {
@@ -31,6 +35,10 @@ const config: Config = {
   port: parsedEnv.PORT as number,
   loggerLevel: parsedEnv.LOGGER_LEVEL as LogLevel,
   localCacheTtl: parsedEnv.LOCAL_CACHE_TTL as number,
+  mongo: {
+    url: parsedEnv.MONGO_URL as string,
+    autoIndex: parsedEnv.MONGO_AUTO_INDEX as boolean
+  },
 };
 
 export default config
