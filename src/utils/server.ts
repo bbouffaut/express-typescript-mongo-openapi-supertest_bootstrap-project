@@ -68,7 +68,7 @@ const createServer = (): AppServers => {
    /** Generate Routes */
    const connect = connector(api_v1, apiDefinition, {
         onCreateRoute: (method: string, descriptor: any[]) => {
-            logger.verbose(`${method}: ${descriptor[0]} : ${(descriptor[1] as any).name}`)
+            logger.verbose(`${method}: ${descriptor[0]} : ${descriptor[1].name}`)
         }
     });
 
