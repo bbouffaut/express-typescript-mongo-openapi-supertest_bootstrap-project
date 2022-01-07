@@ -17,9 +17,10 @@ servers:
 - url: /v1
  
 paths:
+
   /massifs:
     get:
-      description: Return a JSON object describing MeteoFrance-Montagne massif
+      description: Return a JSON object describing all MeteoFrance-Montagne massifs
       operationId: massifs
       responses:
         '200':
@@ -27,7 +28,26 @@ paths:
           content:
             application/json:
               schema:
-                $ref: 'massifs.yml#/components/schemas/Massifs'           
+                $ref: 'massifs.yml#/components/schemas/Massifs'  
+
+  /massifs/{id}:
+    get:
+      description: Return a JSON object describing a specific MeteoFrance-Montagne massif
+      operationId: massifs
+      parameters:
+      - name: id
+        required: true
+        in: path
+        description: the id of the massifs you want to retrieve
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: 'massifs.yml#/components/schemas/IMassif'         
 
   /bera/{id}:
     get:
