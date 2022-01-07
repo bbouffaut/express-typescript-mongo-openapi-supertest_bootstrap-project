@@ -6,7 +6,7 @@ import { createServer } from '@meteo-france-api/utils/server';
 let server: Express;
 
 beforeAll(async () => {
-  server = (await createServer()).expressServer;
+  server = createServer().expressServer;
 })
 
 describe('GET /bera/{id}', () => {
